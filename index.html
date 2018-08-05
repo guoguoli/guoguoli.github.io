@@ -229,7 +229,7 @@
             
               
                 
-                <a class="post-title-link" href="/2017/07/02/React Native 学习笔记（一）/" itemprop="url">
+                <a class="post-title-link" href="/2017/07/02/abc/" itemprop="url">
                   React Native 开发环境搭建
                 </a>
               
@@ -273,14 +273,16 @@
       
         
           
-            <h3 id="React-Native-开发环境搭建"><a href="#React-Native-开发环境搭建" class="headerlink" title="React Native 开发环境搭建"></a><center>React Native 开发环境搭建</center></h3><h4 id="1-iOS"><a href="#1-iOS" class="headerlink" title="1.iOS"></a>1.iOS</h4><ul>
-<li>安装包管理器 Homebrew(Mac系统的包管理器，用于安装NodeJS和一些其他必需的工具软件)<br>终端输入<br><code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code><br>homebrew在安装软件时可能会碰到/usr/local目录不可写的权限问题。可以使用下面的命令修复：<br><code>sudo chown -R</code>whoami<code>/usr/local</code></li>
-<li>安装Node.js<br>终端输入<br><code>brew install node</code><br>安装完后设置镜像加速后面的过程或者科学上网<br><code>npm config set registry https://registry.npm.taobao.org --global
-npm config set disturl https://npm.taobao.org/dist --global</code></li>
-<li>Yarn、React Native的命令行工具（react-native-cli）<br>Yarn是Facebook提供的替代npm的工具，可以加速node模块的下载。React Native的命令行工具用于执行创建、初始化、更新项目、运行打包服务（packager）等任务。<br>命令行输入<br><code>npm install -g yarn react-native-cli</code><br>安装完yarn后同理也要设置镜像源：<br><code>yarn config set registry https://registry.npm.taobao.org --global
-yarn config set disturl https://npm.taobao.org/dist --global</code><h4 id="2-安卓"><a href="#2-安卓" class="headerlink" title="2.安卓"></a>2.安卓</h4></li>
+            <h3 id="React-Native-开发环境搭建"><a href="#React-Native-开发环境搭建" class="headerlink" title="React Native 开发环境搭建"></a>React Native 开发环境搭建</h3><h4 id="1-iOS"><a href="#1-iOS" class="headerlink" title="1.iOS"></a>1.iOS</h4><ul>
+<li>安装包管理器 Homebrew(Mac系统的包管理器，用于安装NodeJS和一些其他必需的工具软件)<br>终端输入<figure class="highlight plain"><figcaption><span>-e "$(curl -fsSL</span><a href="https://raw.githubusercontent.com/Homebrew/install/master/install)" "="" target="_blank" rel="external">link</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">homebrew在安装软件时可能会碰到/usr/local目录不可写的权限问题。可以使用下面的命令修复：</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-
+<p>sudo chown -R <code>whoami</code> /usr/local<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* 安装Node.js</span><br><span class="line">终端输入</span><br></pre></td></tr></table></figure></p>
+<p>brew install node<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装完后设置镜像加速后面的过程或者科学上网</span><br></pre></td></tr></table></figure></p>
+<p>npm config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="external">https://registry.npm.taobao.org</a> –global<br>npm config set disturl <a href="https://npm.taobao.org/dist" target="_blank" rel="external">https://npm.taobao.org/dist</a> –global<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* Yarn、React Native的命令行工具（react-native-cli）  </span><br><span class="line">  Yarn是Facebook提供的替代npm的工具，可以加速node模块的下载。React Native的命令行工具用于执行创建、初始化、更新项目、运行打包服务（packager）等任务。</span><br><span class="line">  命令行输入</span><br></pre></td></tr></table></figure></p>
+<p>  npm install -g yarn react-native-cli<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装完yarn后同理也要设置镜像源：</span><br></pre></td></tr></table></figure></p>
+<p>  yarn config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="external">https://registry.npm.taobao.org</a> –global<br>yarn config set disturl <a href="https://npm.taobao.org/dist" target="_blank" rel="external">https://npm.taobao.org/dist</a> –global<br>```</p>
+<h4 id="2-安卓"><a href="#2-安卓" class="headerlink" title="2.安卓"></a>2.安卓</h4>
           
         
       
