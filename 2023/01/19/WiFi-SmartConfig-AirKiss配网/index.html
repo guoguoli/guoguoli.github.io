@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>WiFi-SmartConfig/AirKiss配网 | 李果洲的Hexo博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="一、相关名词解释   混杂模式： （promiscuous mode） 一般情况下，网卡往往只会接收目的地址是它的数据包而不会接收目的地址不是它的数据包。 混杂模式就是接收所有经过网卡的数据包，包括不是发给本机的包。默认情况下，网卡只把发给本机的包（包括广播包）传递给上层程序，其他的包一律丢弃。 混杂模式就是指网卡能接受所有通过它的数据流，无论是什么模式、什么地址的。当网卡处于这种“混杂”模式时，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WiFi-SmartConfig&#x2F;AirKiss配网">
+<meta property="og:url" content="http://guoguoli.github.io/2023/01/19/WiFi-SmartConfig-AirKiss%E9%85%8D%E7%BD%91/index.html">
+<meta property="og:site_name" content="李果洲的Hexo博客">
+<meta property="og:description" content="一、相关名词解释   混杂模式： （promiscuous mode） 一般情况下，网卡往往只会接收目的地址是它的数据包而不会接收目的地址不是它的数据包。 混杂模式就是接收所有经过网卡的数据包，包括不是发给本机的包。默认情况下，网卡只把发给本机的包（包括广播包）传递给上层程序，其他的包一律丢弃。 混杂模式就是指网卡能接受所有通过它的数据流，无论是什么模式、什么地址的。当网卡处于这种“混杂”模式时，">
+<meta property="og:locale">
+<meta property="og:image" content="http://guoguoli.github.io/images/airkiss_1.jpg">
+<meta property="og:image" content="http://guoguoli.github.io/images/Airkiss_2.jpg">
+<meta property="article:published_time" content="2023-01-19T09:09:53.000Z">
+<meta property="article:modified_time" content="2023-01-19T09:37:47.059Z">
+<meta property="article:author" content="李果洲">
+<meta property="article:tag" content="物联网配网">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://guoguoli.github.io/images/airkiss_1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="李果洲的Hexo博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">李果洲的Hexo博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">果园</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://guoguoli.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-WiFi-SmartConfig-AirKiss配网" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/19/WiFi-SmartConfig-AirKiss%E9%85%8D%E7%BD%91/" class="article-date">
+  <time class="dt-published" datetime="2023-01-19T09:09:53.000Z" itemprop="datePublished">2023-01-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      WiFi-SmartConfig/AirKiss配网
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一、相关名词解释  </p>
+<p>混杂模式： （promiscuous mode）</p>
+<p>一般情况下，网卡往往只会接收目的地址是它的数据包而不会接收目的地址不是它的数据包。</p>
+<p>混杂模式就是接收所有经过网卡的数据包，包括不是发给本机的包。默认情况下，网卡只把发给本机的包（包括广播包）传递给上层程序，其他的包一律丢弃。</p>
+<p>混杂模式就是指网卡能接受所有通过它的数据流，无论是什么模式、什么地址的。当网卡处于这种“混杂”模式时，它对所有遇到的每一个数据帧都产生一个硬件中断，以提醒操作系统处理流经该物理媒体上的每一个报文包。</p>
+<p>网卡工作模式 ： </p>
+<p>广播模式：物理地址（MAC）是0Xffffff的帧为广播帧，工作在广播模式的网卡接收广播帧。</p>
+<p>多播模式：如果将网卡设置为多播模式，它可以接收所有的多播传送帧，而不论他是不是组内成员。</p>
+<p>直接模式：只接收目的地址是自己MAC地址的帧。</p>
+<p>混杂模式：工作在混杂模式下的网卡接收所有流经网卡的帧</p>
+<p>二、配网原理  </p>
+<p>智能硬件处于混杂模式下，监听网络中的所有报文，手机 APP 将ssid 和 pwd 编码到 UDP 报文中，通过广播包或组播包发送，智能硬件接收到 UDP 报文后解码，得到真正的 ssid 和 pwd，然后主动连接指定的 ssid 的路由器。</p>
+<p>优点:</p>
+<p>操作简单，不需要频繁切换热点；</p>
+<p>Wifi 密码输错，能直接配网不成功。</p>
+<p>缺点：</p>
+<p> 需要路由器转发 UDP 报文，所以涉及到路由器，</p>
+<p>2.4G 和 5G 的兼容问题，以及同一场景下多个 wifi 同名路由器等影响；</p>
+<p> 需要路由器转发，所以成功率低于 AP 模式。</p>
+<p>三、配网流程</p>
+<p>配网流程 </p>
+<p>1.初始化硬件设备，使设备进入混杂模式</p>
+<p>2.手机连接路由器WIFI（获取路由器名称)</p>
+<p>3.获取WIFI信息，WiFi 名字和密码</p>
+<p>4.通过组播或广播方式发送WiFi的ssid和pwd或其他的信息比如bssis,userData等（此处一般会APP和设备会定义一套完成的UDP报文协议 协议数据除了WiFi的ssid和pwd，一般会增加一些用户的其他信息 UDP报文协议为了安全考虑，一般会想办法增加一些复杂度，也会增加加密方法 目前报文协议大致就两种：长度编码和MAC地址编码 比如微信的airkiss就是通过长度编码的广播方式）</p>
+<p>5.设备解密收到的报文去连接指定的WiFi</p>
+<p>6.设备端通过广播方式回发设备端相关信息，比如设备id,token（手机端能接收到设备端回发的信息，说明手机端发送的WIFI信息是正确的且设备端已连接上路由器）</p>
+<p>7.查询设备上云状态，配网完成</p>
+<p>airkiss 实现图<br><img src="/images/airkiss_1.jpg"></p>
+<p>ayla airkiss配网流程图<br><img src="/images/Airkiss_2.jpg"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://guoguoli.github.io/2023/01/19/WiFi-SmartConfig-AirKiss%E9%85%8D%E7%BD%91/" data-id="cld2weiuo00002n625iorcv6j" data-title="WiFi-SmartConfig/AirKiss配网" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91%E9%85%8D%E7%BD%91/" rel="tag">物联网配网</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/01/19/%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8bundler%E7%AE%A1%E7%90%86cocoapods-%E7%AD%89%E5%B7%A5%E5%85%B7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          项目使用bundler管理cocoapods等工具
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/19/Wifi-AP%E9%85%8D%E7%BD%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Wifi-AP配网</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">工具环境配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91%E9%85%8D%E7%BD%91/" rel="tag">物联网配网</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">工具环境配置</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91%E9%85%8D%E7%BD%91/" style="font-size: 20px;">物联网配网</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/01/19/%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8bundler%E7%AE%A1%E7%90%86cocoapods-%E7%AD%89%E5%B7%A5%E5%85%B7/">项目使用bundler管理cocoapods等工具</a>
+          </li>
+        
+          <li>
+            <a href="/2023/01/19/WiFi-SmartConfig-AirKiss%E9%85%8D%E7%BD%91/">WiFi-SmartConfig/AirKiss配网</a>
+          </li>
+        
+          <li>
+            <a href="/2023/01/19/Wifi-AP%E9%85%8D%E7%BD%91/">Wifi-AP配网</a>
+          </li>
+        
+          <li>
+            <a href="/2023/01/17/%E8%93%9D%E7%89%99%E9%85%8D%E7%BD%91/">蓝牙配网</a>
+          </li>
+        
+          <li>
+            <a href="/2023/01/17/hexo%E5%91%BD%E4%BB%A4/">hexo命令</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 李果洲<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

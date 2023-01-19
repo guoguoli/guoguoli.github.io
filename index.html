@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>李果洲的Hexo博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="随便写点东西吧">
+<meta property="og:type" content="website">
+<meta property="og:title" content="李果洲的Hexo博客">
+<meta property="og:url" content="http://guoguoli.github.io/index.html">
+<meta property="og:site_name" content="李果洲的Hexo博客">
+<meta property="og:description" content="随便写点东西吧">
+<meta property="og:locale">
+<meta property="article:author" content="李果洲">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="李果洲的Hexo博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">李果洲的Hexo博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">果园</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://guoguoli.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-项目使用bundler管理cocoapods-等工具" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/19/%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8bundler%E7%AE%A1%E7%90%86cocoapods-%E7%AD%89%E5%B7%A5%E5%85%B7/" class="article-date">
+  <time class="dt-published" datetime="2023-01-19T09:11:44.000Z" itemprop="datePublished">2023-01-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/01/19/%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8bundler%E7%AE%A1%E7%90%86cocoapods-%E7%AD%89%E5%B7%A5%E5%85%B7/">项目使用bundler管理cocoapods等工具</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h3><p>在iOS开发中我们会使用很多通过gem安装的工具来进行项目的管理 如cocoapods 管理三方库 ,fastlane 进行打包 发布 自动化测试等，但是这些工具的配置很繁琐，每个人的电脑上的环境可能不同，安装的版本可能不一致，最后在进行项目开发时使用这些工具会导致各种错误和冲突的产生，比如A同事的电脑上是 1.10.2， B同事的版本是1.11.3 那么在他们互相使用代码的时候需要重新pod install 才可以运行代码, 比如这种：<br><img src="/images/pod_version_conflict.jpg" alt="pod版本不一致"><br>为了避免和减少此类问题可引入bundler来对这些工具统一管理<br> <a target="_blank" rel="noopener" href="https://www.bundler.cn/">bundler的更多介绍</a></p>
+<h3 id="二、配置流程步骤"><a href="#二、配置流程步骤" class="headerlink" title="二、配置流程步骤"></a>二、配置流程步骤</h3><h4 id="1-电脑环境配置"><a href="#1-电脑环境配置" class="headerlink" title="1.电脑环境配置"></a>1.电脑环境配置</h4><p>安装 rbenv 用来管理多个版本的 ruby<br>安装命令 <code>brew install rbenv</code><br>初始化 rbenv环境  在 ~&#x2F;.bash_profile或者 ~&#x2F;.zshrc等⽂件，设置信息，保证每次打开终端都会初始化 rbenv环境    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;</span><br><span class="line">eval &quot;$(rbenv init -)&quot;</span><br></pre></td></tr></table></figure>
+<p>安装bundler<br>安装命令  <code> gem install bundler</code><br>删除命令  <code>gem uninstall bundler</code>     </p>
+<p>RubyGems和 Bunlder主要⽤来安装和管理 CocoaPods和 fastlane等第三⽅⼯具。<br>RubyGems是 Ruby依赖包管理⼯具，通过 gem install命令来安装 Gem包。<br>Bundler⽤来检查和安装 Gem的特定版本，以此为Ruby项⽬提供⼀致性的环境。  </p>
+<h4 id="2-安装和设置项目的ruby环境"><a href="#2-安装和设置项目的ruby环境" class="headerlink" title="2.安装和设置项目的ruby环境"></a>2.安装和设置项目的ruby环境</h4><p>进入工程目录 <code>cd /Users/liguozhou/Desktop/EB_Works/EB_code/MyDemos/BundlerDemo</code><br>安装2.7.2的ruby <code>rbenv install 2.7.2</code><br>设置项目的ruby环境为2.7.2 <code> rbenv local 2.7.2</code><br>rbenv会在项⽬⽬录下建⽴⼀个叫 .ruby-version的⽂件，该⽂件⾥边只保存⼀个版本的字符串。</p>
+<h4 id="3-初始化项目bundler"><a href="#3-初始化项目bundler" class="headerlink" title="3.初始化项目bundler"></a>3.初始化项目bundler</h4><p>命令行进入项目根目录  <code>/Users/liguozhou/Desktop/EB_Works/EB_code/MyDemos/BundlerDemo</code><br>输入初始化命令<br> <code>bundler init</code><br>会自动生成一个名为Gemfile的文件   内容为：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># frozen_string_literal: true</span><br><span class="line"></span><br><span class="line">source &quot;https://rubygems.org&quot;</span><br><span class="line"></span><br><span class="line"># gem &quot;rails&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="4-在Gemfile中加入需要统一版本的工具-如cocoapods-、fastlane等"><a href="#4-在Gemfile中加入需要统一版本的工具-如cocoapods-、fastlane等" class="headerlink" title="4.在Gemfile中加入需要统一版本的工具,如cocoapods 、fastlane等"></a>4.在Gemfile中加入需要统一版本的工具,如cocoapods 、fastlane等</h4><p>默认  <code>gem &#39;cocoapods&#39; </code><br>指定版本    <code>gem &#39;cocoapods&#39;, &#39;~&gt; 1.11.3&#39; </code><br>指定分支   <code>gem &#39;cocoapods&#39;, :git =&gt; &#39;https://github.com/CocoaPods/CocoaPods.git&#39; </code><br><a target="_blank" rel="noopener" href="https://bundler.io/guides/gemfile.html">更多Gemfile语法</a></p>
+<h4 id="5-安装"><a href="#5-安装" class="headerlink" title="5.安装"></a>5.安装</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bundler config set --local path &#x27;vendor/bundle&#x27;</span><br><span class="line">bundler install</span><br></pre></td></tr></table></figure>
+<h4 id="6-使用工具的改变"><a href="#6-使用工具的改变" class="headerlink" title="6.使用工具的改变"></a>6.使用工具的改变</h4><p>之后的命令需要在原命令前加上 <code>bundle exec</code>   比如 <code>pod install</code>  变成 <code>bundle exec pod install</code></p>
+<h4 id="7-多人协作的环境配置脚本"><a href="#7-多人协作的环境配置脚本" class="headerlink" title="7. 多人协作的环境配置脚本"></a>7. 多人协作的环境配置脚本</h4><p>创建一个名为 env_setup.sh 的脚本文件内容为：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> #!/bin/sh</span><br><span class="line"> </span><br><span class="line"># 获取项目中设置的ruby版本 若没有安装对应版本则使用rbenv安装对应版本</span><br><span class="line">ruby_version=`cat .ruby-version`</span><br><span class="line">if [[ ! -d &quot;$HOME/.rbenv/versions/$ruby_version&quot; ]]; then</span><br><span class="line"> rbenv install $ruby_version;</span><br><span class="line">fi</span><br><span class="line"># 安装bundler 工具</span><br><span class="line">gem install bundler</span><br><span class="line"># 安装Gemfile中添加的工具 版本会统一在Gemfile.lock中 （与pod install 类似）</span><br><span class="line">bundler install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>将项目配置完后上传到git仓库 后续加入项目的其他人员在个人电脑上安装并配置好rbenv便可以 直接执行配置脚本env_setup.sh 脚本即可完成配置, 后续使用工具时在原命令前加上 <code>bundle exec</code> 即可</p>
+<h3 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h3><p>至此通过bundler来管理项目工具的配置基本结束,通过脚本的一键配置更加方便后续加入项目的同事进行配置，这样统管理工具可以减少在个人电脑上安装环境不一致时常产生冲突的问题。后续安装其他工具时也更加方便只需要在Gemfile中添加 再执行<code>bundler install</code>即可</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://guoguoli.github.io/2023/01/19/%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8bundler%E7%AE%A1%E7%90%86cocoapods-%E7%AD%89%E5%B7%A5%E5%85%B7/" data-id="cld2wgnsq00033m625xdc2q6h" data-title="项目使用bundler管理cocoapods等工具" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">工具环境配置</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-WiFi-SmartConfig-AirKiss配网" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/19/WiFi-SmartConfig-AirKiss%E9%85%8D%E7%BD%91/" class="article-date">
+  <time class="dt-published" datetime="2023-01-19T09:09:53.000Z" itemprop="datePublished">2023-01-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/01/19/WiFi-SmartConfig-AirKiss%E9%85%8D%E7%BD%91/">WiFi-SmartConfig/AirKiss配网</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一、相关名词解释  </p>
+<p>混杂模式： （promiscuous mode）</p>
+<p>一般情况下，网卡往往只会接收目的地址是它的数据包而不会接收目的地址不是它的数据包。</p>
+<p>混杂模式就是接收所有经过网卡的数据包，包括不是发给本机的包。默认情况下，网卡只把发给本机的包（包括广播包）传递给上层程序，其他的包一律丢弃。</p>
+<p>混杂模式就是指网卡能接受所有通过它的数据流，无论是什么模式、什么地址的。当网卡处于这种“混杂”模式时，它对所有遇到的每一个数据帧都产生一个硬件中断，以提醒操作系统处理流经该物理媒体上的每一个报文包。</p>
+<p>网卡工作模式 ： </p>
+<p>广播模式：物理地址（MAC）是0Xffffff的帧为广播帧，工作在广播模式的网卡接收广播帧。</p>
+<p>多播模式：如果将网卡设置为多播模式，它可以接收所有的多播传送帧，而不论他是不是组内成员。</p>
+<p>直接模式：只接收目的地址是自己MAC地址的帧。</p>
+<p>混杂模式：工作在混杂模式下的网卡接收所有流经网卡的帧</p>
+<p>二、配网原理  </p>
+<p>智能硬件处于混杂模式下，监听网络中的所有报文，手机 APP 将ssid 和 pwd 编码到 UDP 报文中，通过广播包或组播包发送，智能硬件接收到 UDP 报文后解码，得到真正的 ssid 和 pwd，然后主动连接指定的 ssid 的路由器。</p>
+<p>优点:</p>
+<p>操作简单，不需要频繁切换热点；</p>
+<p>Wifi 密码输错，能直接配网不成功。</p>
+<p>缺点：</p>
+<p> 需要路由器转发 UDP 报文，所以涉及到路由器，</p>
+<p>2.4G 和 5G 的兼容问题，以及同一场景下多个 wifi 同名路由器等影响；</p>
+<p> 需要路由器转发，所以成功率低于 AP 模式。</p>
+<p>三、配网流程</p>
+<p>配网流程 </p>
+<p>1.初始化硬件设备，使设备进入混杂模式</p>
+<p>2.手机连接路由器WIFI（获取路由器名称)</p>
+<p>3.获取WIFI信息，WiFi 名字和密码</p>
+<p>4.通过组播或广播方式发送WiFi的ssid和pwd或其他的信息比如bssis,userData等（此处一般会APP和设备会定义一套完成的UDP报文协议 协议数据除了WiFi的ssid和pwd，一般会增加一些用户的其他信息 UDP报文协议为了安全考虑，一般会想办法增加一些复杂度，也会增加加密方法 目前报文协议大致就两种：长度编码和MAC地址编码 比如微信的airkiss就是通过长度编码的广播方式）</p>
+<p>5.设备解密收到的报文去连接指定的WiFi</p>
+<p>6.设备端通过广播方式回发设备端相关信息，比如设备id,token（手机端能接收到设备端回发的信息，说明手机端发送的WIFI信息是正确的且设备端已连接上路由器）</p>
+<p>7.查询设备上云状态，配网完成</p>
+<p>airkiss 实现图<br><img src="/images/airkiss_1.jpg"></p>
+<p>ayla airkiss配网流程图<br><img src="/images/Airkiss_2.jpg"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://guoguoli.github.io/2023/01/19/WiFi-SmartConfig-AirKiss%E9%85%8D%E7%BD%91/" data-id="cld2weiuo00002n625iorcv6j" data-title="WiFi-SmartConfig/AirKiss配网" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91%E9%85%8D%E7%BD%91/" rel="tag">物联网配网</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Wifi-AP配网" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/19/Wifi-AP%E9%85%8D%E7%BD%91/" class="article-date">
+  <time class="dt-published" datetime="2023-01-19T09:09:06.000Z" itemprop="datePublished">2023-01-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/01/19/Wifi-AP%E9%85%8D%E7%BD%91/">Wifi-AP配网</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一、相关名词解释 </p>
+<p>AP（Access Point）：无线接入点，是一个无线网络的创建者，是网络的中心节点。简单来讲就像是无线路由器一样，设备打开后进入AP模式，在手机的网络列表里面，可以搜索到类似Ayla-XXX的名字。</p>
+<p>STA（Station）：任何一个接入无线的设备都可以成为一个站点，也就是平时接入路由器的设备</p>
+<p>SSID（Service Set Identifer）：每个无线AP都应该有一个标示用于用户识别，SSID就是这个用于用户标识的名字，也就是我们经常说到的wifi名。</p>
+<p>BSSID（Service Set Identifer）：每一个网络设备都有其用于识别的物理地址，称作MAC地址，一般情况下出厂会有一个默认值，可更改，也有其固定的命名格式，也是设备识别的标识符。BSSID是针对设备说的，对于STA的设备来说，拿到AP接入点的MAC地址就是这个BSSID </p>
+<p>ESSID（Service Set Identifer）：是一个比较抽象的概念，它实际上就和SSID相同（本质也是一串字符），只是能如果有好几个无线路由器都叫这个名字，那么我们就相当于把这个SSID扩大了，所以这几个无线路由器共同的这个名字就叫ESSID</p>
+<p>ADS：Ayla 设备服务器 设备连接云端数据往来的主要服务器.  云端 80&#x2F;443 端口</p>
+<p>ANS：Ayla通知服务器(确保设备online，更新事件下发到设备）</p>
+<p>二、AP配网原理 </p>
+<p>智能硬件处于 AP 模式（类似路由器，组成局域网），手机用于 STA模式，手机连接 AP 模式的智能硬件后组成局域网，手机通过 tcp 协议发送连接路由器的 ssid 和 pwd 等信息至智能硬件，智能硬件主动去连接指定的路由器后完成配网</p>
+<p>优点：</p>
+<p>不需要路由器的参与，所以没有路由器兼容问题；</p>
+<p>配网成功率最高的一种配网方式。</p>
+<p>缺点：</p>
+<p> 用户输错密码，手机 APP 端没法知道，还是可以配网成功，需要</p>
+<p>借助物联网平台校验；</p>
+<p> 手机兼容问题，比如手机系统无法自动切换热点</p>
+<p>三、AP配网流程 </p>
+<p>AP配网流程</p>
+<p>1.初始化硬件设备，使设备进入 AP 模式</p>
+<p>2.手机连接路由器WIFI（获取路由器名称)</p>
+<p>3.获取WIFI信息，WiFi 名字和密码</p>
+<p>4.手机连接到设备发出的WiFi 类似”ayla-xxxx” </p>
+<p>5.通过约定的协议和数据格式将wifi名字和密码发送给设备 </p>
+<p>6.设备连接指定WiFi，断开AP模式</p>
+<p>7.手机连回路由器WiFi，查询设备上云状态</p>
+<p>AP 联网示意图<br><img src="/images/AP_1.jpg" alt="AP 联网示意图"></p>
+<p>ayla AP 配网流程图<br><img src="/images/AP_2.jpg" alt="ayla AP 配网流程图"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://guoguoli.github.io/2023/01/19/Wifi-AP%E9%85%8D%E7%BD%91/" data-id="cld2wgaq400013m62ch4sblgu" data-title="Wifi-AP配网" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91%E9%85%8D%E7%BD%91/" rel="tag">物联网配网</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-蓝牙配网" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/17/%E8%93%9D%E7%89%99%E9%85%8D%E7%BD%91/" class="article-date">
+  <time class="dt-published" datetime="2023-01-17T03:16:04.000Z" itemprop="datePublished">2023-01-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/01/17/%E8%93%9D%E7%89%99%E9%85%8D%E7%BD%91/">蓝牙配网</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一、相关名词解释  </p>
+<p>蓝牙</p>
+<p>蓝牙技术是一种无线数据和语音通信开放的全球规范，它是基于低成本的近距离无线连接，为固定和移动设备建立通信环境的一种特殊的近距离无线技术连接，可实现固定设备、移动设备之间的数据交换。</p>
+<p>BLE</p>
+<p>BLE（Bluetooh Low Energy）一般指蓝牙低能耗，是蓝牙技术联盟设计和销售的一种个人局域网技术，蓝牙低能耗技术是短距离、低成本、可互操作性的无线技术，它利用许多智能手段最大限度地降低功耗。BLE技术的工作模式非常适合用于从微型无线传感器（每半秒交换一次数据）或使用完全异步通信的遥控器等其它外设传送数据。这些设备发送的数据量非常少（通常几个字节），而且发送次数也很少（例如每秒几次到每分钟一次，甚至更少）</p>
+<p>BLE蓝牙模块主要应用领域：</p>
+<p>1、移动扩展设备</p>
+<p>2、汽车电子设备</p>
+<p>3、健康医疗用品：心跳带、血压计等</p>
+<p>4、定位应用：室内定位、井下定位等</p>
+<p>5、近距离数据采集：无线抄表、无线遥测等</p>
+<p>6、数据传输：智能家居室内控制、蓝牙调光、打印机等</p>
+<p>二、蓝牙配网原理</p>
+<p>通过蓝牙连接的方式将设备与手机连接后，手机APP传输配网信息给到设备用于连接路由器</p>
+<p>优点：核心交互使用蓝牙进行数据传输，而蓝牙协议是通用且标准的，所以基本不存在兼容性问题。</p>
+<p>缺点：1.设备需要具有WiFi模块，相对成本较高  2.手机需额外开启蓝牙权限</p>
+<p>三、配网流程</p>
+<p>配网流程 </p>
+<p>1.初始化硬件设备，使设备进入蓝牙模式广播蓝牙</p>
+<p>2.手机连接设备蓝牙</p>
+<p>2.手机连接路由器WIFI（获取路由器名称)</p>
+<p>3.获取WIFI信息，WiFi 名字和密码</p>
+<p>4.通过蓝牙发送WiFi的ssid和pwd或其他的信息比如bssis,userData等</p>
+<p>5.设备解密收到的报文去连接指定的WiFi</p>
+<p>6.设备通过蓝牙回发设备端相关信息，比如设备id,token（手机端能接收到设备端回发的信息，说明手机端发送的WIFI信息是正确的且设备端已连接上路由器）</p>
+<p>7.查询设备上云状态，配网完成</p>
+<p>蓝牙配网流程图<br><img src="/images/bleProgress.png" alt="蓝牙配网流程图"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://guoguoli.github.io/2023/01/17/%E8%93%9D%E7%89%99%E9%85%8D%E7%BD%91/" data-id="clczq1les0002nc62cso21zx5" data-title="蓝牙配网" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91%E9%85%8D%E7%BD%91/" rel="tag">物联网配网</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hexo命令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/17/hexo%E5%91%BD%E4%BB%A4/" class="article-date">
+  <time class="dt-published" datetime="2023-01-17T02:52:21.000Z" itemprop="datePublished">2023-01-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/01/17/hexo%E5%91%BD%E4%BB%A4/">hexo命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>常用命令  </p>
+<p>hexo new “postName” #新建文章<br>hexo new page “pageName” #新建页面<br>hexo generate #生成静态页面至public目录<br>hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br>hexo deploy #部署到GitHub<br>hexo help  # 查看帮助<br>hexo version  #查看Hexo的版本</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://guoguoli.github.io/2023/01/17/hexo%E5%91%BD%E4%BB%A4/" data-id="clczq1leo0000nc626li08hw8" data-title="hexo命令" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">工具环境配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91%E9%85%8D%E7%BD%91/" rel="tag">物联网配网</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">工具环境配置</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91%E9%85%8D%E7%BD%91/" style="font-size: 20px;">物联网配网</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/01/19/%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8bundler%E7%AE%A1%E7%90%86cocoapods-%E7%AD%89%E5%B7%A5%E5%85%B7/">项目使用bundler管理cocoapods等工具</a>
+          </li>
+        
+          <li>
+            <a href="/2023/01/19/WiFi-SmartConfig-AirKiss%E9%85%8D%E7%BD%91/">WiFi-SmartConfig/AirKiss配网</a>
+          </li>
+        
+          <li>
+            <a href="/2023/01/19/Wifi-AP%E9%85%8D%E7%BD%91/">Wifi-AP配网</a>
+          </li>
+        
+          <li>
+            <a href="/2023/01/17/%E8%93%9D%E7%89%99%E9%85%8D%E7%BD%91/">蓝牙配网</a>
+          </li>
+        
+          <li>
+            <a href="/2023/01/17/hexo%E5%91%BD%E4%BB%A4/">hexo命令</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 李果洲<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
